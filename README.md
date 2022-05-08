@@ -88,3 +88,29 @@ python object_detection/builders/model_builder_tf2_test.py
   python generate_tfrecord.py -x [PATH_TO_IMAGES_FOLDER]/train -l [PATH_TO_ANNOTATIONS_FOLDER]/label_map.pbtxt -o [PATH_TO_ANNOTATIONS_FOLDER]/train.record
   python generate_tfrecord.py -x [PATH_TO_IMAGES_FOLDER]/test -l [PATH_TO_ANNOTATIONS_FOLDER]/label_map.pbtxt -o [PATH_TO_ANNOTATIONS_FOLDER]/test.record
   ```
+
+## Configuring the training job
+
+- Go to [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) and download SSD ResNet50 V1 FPN 640x640 (RetinaNet50)
+- Extract the downloaded model into training_demo/pretrained-models
+
+## Configure the training pipeline
+- Create a folder my_ssd_resnet50_v1_fpn in training_demo/models folder
+- copy pipeline.config to models/ from pre-trained-models directory
+- update the pipeline.config as per the [documentation](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html)
+
+## Copy training file from TensorFlow/models/research/object_detection/ to the training_demo folder
+```bash
+cp ../../TensorFlow/models/research/object_detection/model_main_tf2.py .
+```
+
+## start training by running the following command
+```bash
+python model_main_tf2.py --model_dir=models/my_ssd_resnet50_v1_fpn --pipeline_config_path=models/my_ssd_resnet50_v1_fpn/pipeline.config
+```
+
+## export the trained model
+```bash
+cp ../../TensorFlow/models/research/object_detection/exporter_main_v2.py .
+python ./exporter_main_v2.py --input_type image_tensor --pipeline_config_path ./models/my_ssd_resnet50_v1_fpn/pipeline.config --trained_checkpoint_dir ./models/my_ssd_resnet50_v1_fpn/ --output_directory ./exported-models/my_model
+```
