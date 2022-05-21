@@ -65,7 +65,7 @@ python object_detection/builders/model_builder_tf2_test.py
   mkdir -p annotations exported-models models pre-trained-models images/test images/train
   ```
 
-- Download the image data from [here](https://drive.google.com/file/d/14d4mlFrgYoHIcgdMzxtXmYvxOuz_HePY/view?usp=sharing)
+- Download the image data from [here](https://drive.google.com/file/d/14d4mlFrgYoHIcgdMzxtXmYvxOuz_HePY/view?usp=sharing) and extract it in images folder under training demo.
   
 - Create label_map.pbtxt in annotations folder and write content as 
   ```
